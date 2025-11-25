@@ -7,7 +7,7 @@
 		"dev": "ts-node src/index.ts",
 		"build": "tsc",
 		"start": "node dist/index.js",
-		"render-build": "prisma generate && pnpm build",
+		"render-build": "pnpm dlx prisma generate && pnpm build",
 		"lint": "eslint src/**/*.ts",
 		"lint:fix": "eslint src/**/*.ts --fix",
 		"format": "prettier --write \"src/**/*.{ts,json,md}\"",
