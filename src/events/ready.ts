@@ -2,15 +2,13 @@ import { Client } from "discord.js";
 
 import { registerSlashCommands } from "../commands";
 import { logger } from "../lib/logger";
-import { prisma } from "../lib/prisma";
 
 export async function handleReady(client: Client) {
 	logger.info(`Bot connecté en tant que ${client.user?.tag}`);
 
 	try {
-		await prisma.$connect();
-
-		logger.info("Connexion à PostgreSQL établie");
+		// await prisma.$connect();
+		// logger.info("Connexion à PostgreSQL établie");
 	} catch (error) {
 		logger.error("Erreur de connexion à PostgreSQL", error);
 	}

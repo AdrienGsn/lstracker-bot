@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import { commands } from "./commands";
 import { registerEvents } from "./events";
 import { logger } from "./lib/logger";
-import { prisma } from "./lib/prisma";
 import { Command } from "./types";
 
 dotenv.config();
@@ -26,8 +25,6 @@ registerEvents(client);
 
 process.once("SIGINT", async () => {
 	logger.info("SIGINT signal received. Shutting down gracefully...");
-
-	await prisma.$disconnect();
 
 	client.destroy();
 
