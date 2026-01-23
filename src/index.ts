@@ -1,12 +1,13 @@
+import "./server";
+
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 
-import "./server";
 
 import { commands } from "./commands";
 import { registerEvents } from "./events";
 import { logger } from "./lib/logger";
-import { Command } from "./types";
+import { ClientWithCommands, Command } from "./types";
 
 dotenv.config();
 
@@ -17,11 +18,16 @@ const client = new Client({
 		GatewayIntentBits.MessageContent,
 		GatewayIntentBits.GuildMembers,
 	],
-});
+}) as ClientWithCommands;
 
-(client as any).commands = new Collection<string, Command>();
+if (!client.commands) {
+	client.commands = new Collection<string, Command>();
+}
+
+client.commands.clear();
+
 commands.forEach((command) => {
-	(client as any).commands.set(command.data.name, command);
+	client.commands.set(command.data.name, command);
 });
 
 registerEvents(client);
